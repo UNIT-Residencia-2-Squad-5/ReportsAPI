@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres
+    container_name: reports-postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: reports-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - reports_pg_data:/var/lib/postgresql/data
+      - ./db/migrations:/migrations   
+volumes:
+  reports_pg_data:

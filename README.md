@@ -1,1 +1,72 @@
-qualquer coisa jhjgj
+
+# Reports API
+
+API backend para o sistema de geração de relatórios da **Bonsae**.
+
+## Stack utilizada
+
+- Node.js + TypeScript
+- Express.js
+- PostgreSQL
+- Docker + Docker Compose
+- MinIO
+- BullMQ
+- Swagger (em breve)
+
+## Instalando
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/UNIT-Residencia-2-Squad-5/ReportsAPI.git
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd ReportsAPI
+```
+
+Instale as dependências
+
+```bash
+  npm install
+```
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`PG_HOST`
+
+`PG_PORT`
+
+`PG_DATABASE`
+
+`PG_USER`
+
+`PG_PASSWORD`
+
+## Docker
+
+Este projeto utiliza docker e docker-compose, preencha as informações no .env e depois rode o comando
+
+```bash
+  docker-compose up -d
+```
+
+## Rodando localmente
+
+Inicie o servidor
+
+```bash
+  npm run dev
+```
+
+## Faça o teste
+
+Faça uma requisição na rota healthcheck abaixo para testar a API
+
+```http
+  GET http://localhost:3000/api/health
+```

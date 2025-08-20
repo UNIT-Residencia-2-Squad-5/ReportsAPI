@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import dotenv from 'dotenv';
 import { Postgres } from '@/infrastructure/postgres/Postgres';
-import { getLogger } from '@/infrastructure/utils/Logger';
+import { getLogger } from '@/utils/Logger';
 
 dotenv.config(); 
 

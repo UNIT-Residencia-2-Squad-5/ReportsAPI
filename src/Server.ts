@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { getLogger } from '@/infrastructure/utils/Logger';
+import { getLogger } from '@/utils/Logger';
 import { Postgres } from '@/infrastructure/postgres/Postgres';
 import App from '@/App';
 

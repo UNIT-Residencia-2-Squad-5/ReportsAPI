@@ -3,7 +3,7 @@ import { Server as HttpServer } from 'http';
 import cors from 'cors';
 import { readdirSync } from 'fs';
 import { join, extname } from 'path';
-import { getLogger } from '@/infrastructure/utils/Logger';
+import { getLogger } from '@/utils/Logger';
 
 const LOGGER = getLogger();
 

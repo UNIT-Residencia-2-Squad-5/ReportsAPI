@@ -47,6 +47,20 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 `PG_PASSWORD`
 
+`S3_ENDPOINT`
+
+`S3_REGION`
+
+`S3_ACCESS_KEY`
+
+`S3_SECRET_KEY`
+
+`S3_FORCE_PATH_STYLE=true`
+
+`S3_BUCKET`
+
+`S3_PRESIGNED_TTL_SECONDS`
+
 ## Docker
 
 Este projeto utiliza docker e docker-compose, preencha as informações no .env e depois rode o comando

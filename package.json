@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn --require tsconfig-paths/register src/server.ts",
     "seed": "ts-node -r tsconfig-paths/register src/scripts/seed.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "minio:test": "ts-node -r tsconfig-paths/register src/scripts/testMinio.ts"
   },
   "keywords": [],
   "author": "",

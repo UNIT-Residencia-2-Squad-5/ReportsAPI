@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { getLogger } from '@/utils/Logger';
 import { Postgres } from '@/infrastructure/postgres/Postgres';
-import App from '@/App';
+import App from '@/app';
 
 const LOGGER = getLogger();
 const PORT = Number(process.env.PORT || 3000);

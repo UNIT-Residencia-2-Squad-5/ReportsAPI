@@ -5,15 +5,10 @@ export class Postgres {
 
   static init() {
     if (!Postgres.pool) {
-      Postgres.pool = new Pool({
-        host: process.env.PG_HOST,
-        port: Number(process.env.PG_PORT),
-        database: process.env.PG_DATABASE!,
-        user: process.env.PG_USER!,
-        password: String(process.env.PG_PASSWORD),
-        max: 10,
-        idleTimeoutMillis: 30_000,
-      });
+      const databaseUrl = process.env.DATABASE_URL?.trim();
+      if (databaseUrl) {
+        Postgres.pool = new Pool({ connectionString: databaseUrl, max: 10, idleTimeoutMillis: 30_000 });
+      }
     }
     return Postgres.pool;
   }

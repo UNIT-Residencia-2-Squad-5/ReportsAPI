@@ -37,29 +37,23 @@ Instale as dependências
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-`PG_HOST`
+### Banco de Dados 
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+- POSTGRES_DB
+- POSTGRES_PORT
 
-`PG_PORT`
+### URL usada pela aplicação Node (fora do Docker)
+- DATABASE_URL
 
-`PG_DATABASE`
-
-`PG_USER`
-
-`PG_PASSWORD`
-
-`S3_ENDPOINT`
-
-`S3_REGION`
-
-`S3_ACCESS_KEY`
-
-`S3_SECRET_KEY`
-
-`S3_FORCE_PATH_STYLE=true`
-
-`S3_BUCKET`
-
-`S3_PRESIGNED_TTL_SECONDS`
+### MinIO / S3
+- S3_ENDPOINT
+- S3_REGION
+- S3_ACCESS_KEY
+- S3_SECRET_KEY
+- S3_BUCKET
+- S3_FORCE_PATH_STYLE = true
+- S3_PRESIGNED_TTL_SECONDS
 
 ## Docker
 
@@ -83,4 +77,10 @@ Faça uma requisição na rota healthcheck abaixo para testar a API
 
 ```http
   GET http://localhost:3000/api/health
+```
+
+Teste o MinIO
+
+```bash
+npm run minio:test
 ```

@@ -3,11 +3,11 @@ services:
     image: postgres
     container_name: reports-postgres
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: reports-db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - reports_pg_data:/var/lib/postgresql/data
       - ./db/migrations:/migrations
@@ -16,12 +16,12 @@ services:
     container_name: reports-minio
     command: server /data --console-address ":9001"
     ports:
-      - "9000:9000"   # S3 API
-      - "9001:9001"   # Console Web
+      - "9000:9000" 
+      - "9001:9001"
     environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: minio123
-      MINIO_REGION_NAME: sa-east-1
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+      MINIO_REGION_NAME: ${S3_REGION}
     volumes:
       - minio_data:/data
 

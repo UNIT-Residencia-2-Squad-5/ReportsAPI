@@ -8,7 +8,7 @@
     "seed": "ts-node -r tsconfig-paths/register src/scripts/seed.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "minio:test": "ts-node -r tsconfig-paths/register src/scripts/testMinio.ts"
+    "minio:test": "ts-node -r tsconfig-paths/register src/scripts/testObjectStorage.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.872.0",
+    "@aws-sdk/lib-storage": "^3.879.0",
     "@aws-sdk/s3-request-presigner": "^3.872.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

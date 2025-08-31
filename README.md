@@ -1,7 +1,8 @@
-
 # Reports API
 
 API backend para o sistema de geração de relatórios da **Bonsae**.
+
+---
 
 ## Stack utilizada
 
@@ -10,32 +11,34 @@ API backend para o sistema de geração de relatórios da **Bonsae**.
 - PostgreSQL
 - Docker + Docker Compose
 - MinIO
-- BullMQ
+- BullMQ (em breve)
 - Swagger (em breve)
+
+---
 
 ## Instalando
 
 Clone o projeto
 
 ```bash
-  git clone https://github.com/UNIT-Residencia-2-Squad-5/ReportsAPI.git
+git clone https://github.com/UNIT-Residencia-2-Squad-5/ReportsAPI.git
 ```
 
 Entre no diretório do projeto
 
 ```bash
-  cd ReportsAPI
+cd ReportsAPI
 ```
 
 Instale as dependências
 
 ```bash
-  npm install
+npm install
 ```
 
 ## Variáveis de Ambiente
 
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env:
 
 ### Banco de Dados 
 - POSTGRES_USER
@@ -60,7 +63,24 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 Este projeto utiliza docker e docker-compose, preencha as informações no .env e depois rode o comando
 
 ```bash
-  docker-compose up -d
+docker-compose up -d
+```
+
+## Migrations
+
+Este projeto **não utiliza ORM**. As migrations devem ser aplicadas manualmente diretamente no banco **Postgres** que roda dentro do container Docker.   
+
+Suba o container:
+```bash
+docker compose up -d
+```
+Acesse o banco:
+```bash
+docker exec -it <nome-do-container> psql -U <usuario> -d <database>
+```
+Rode os arquivos de migration que estão em **src/infrastructure/db/migrations:**
+```bash
+\i migrations/001_create_users.sql
 ```
 
 ## Rodando localmente
@@ -68,19 +88,27 @@ Este projeto utiliza docker e docker-compose, preencha as informações no .env 
 Inicie o servidor
 
 ```bash
-  npm run dev
+npm run dev
 ```
 
 ## Faça o teste
 
+### Health Check
 Faça uma requisição na rota healthcheck abaixo para testar a API
 
 ```http
-  GET http://localhost:3000/api/health
+GET http://localhost:3000/api/health
 ```
-
-Teste o MinIO
+### MinIO
+Primeiro crie o bucket com o mesmo nome especificado no .env através do link http://localhost:9001 e depois rode o comando:
 
 ```bash
 npm run minio:test
 ```
+
+## Exemplo de Arquitetura
+
+O "Model" **User** foi criado apenas como **exemplo didático**, para mostrar como as camadas do projeto se comunicam entre si 
+(routes → controllers → services → repositories → entities).  
+
+Ele **não representa um requisito de negócio real** e pode ser removido ou substituído pelas entidades definitivas do sistema.

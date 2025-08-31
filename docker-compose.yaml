@@ -10,7 +10,7 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - reports_pg_data:/var/lib/postgresql/data
-      - ./db/migrations:/migrations
+      - ./src/infrastructure/db/migrations:/migrations
   minio:
     image: minio/minio:latest
     container_name: reports-minio

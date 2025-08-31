@@ -6,9 +6,10 @@ export class Postgres {
   static init() {
     if (!Postgres.pool) {
       const databaseUrl = process.env.DATABASE_URL?.trim();
-      if (databaseUrl) {
-        Postgres.pool = new Pool({ connectionString: databaseUrl, max: 10, idleTimeoutMillis: 30_000 });
+      if (!databaseUrl) {
+        throw new Error("DATABASE_URL is not defined in the environment");
       }
+      Postgres.pool = new Pool({ connectionString: databaseUrl, max: 10, idleTimeoutMillis: 30_000 });
     }
     return Postgres.pool;
   }

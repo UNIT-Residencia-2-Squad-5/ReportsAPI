@@ -58,7 +58,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 - S3_FORCE_PATH_STYLE = true
 - S3_PRESIGNED_TTL_SECONDS
 
-### --- REDIS ---
+### REDIS
 - REDIS_HOST
 - REDIS_PORT
 - REDIS_DB

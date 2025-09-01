@@ -24,7 +24,14 @@ services:
       MINIO_REGION_NAME: ${S3_REGION}
     volumes:
       - minio_data:/data
-
+  redis:
+    image: redis:7
+    container_name: reports-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
 volumes:
   reports_pg_data:
   minio_data:
+  redis_data:

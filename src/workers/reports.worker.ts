@@ -9,16 +9,13 @@ export function startReportsWorker() {
     "reports_queue",
     async (job: Job) => {
       LOGGER.info("==========================================");
-      LOGGER.info("Job recebido");
+      LOGGER.info("Job recebido, processando...");
       LOGGER.info("ID:", job.id);
       LOGGER.info("Nome:", job.name);
       LOGGER.info("Dados:", job.data);
-      LOGGER.info("Processando...");
-
+      
       // Simula um trabalho pesado de 5 segundos
       await new Promise((resolve) => setTimeout(resolve, 5000));
-
-      LOGGER.info("==========================================");
     },
     {
       connection: getRedis(),

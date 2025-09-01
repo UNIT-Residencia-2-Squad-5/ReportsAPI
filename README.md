@@ -11,7 +11,7 @@ API backend para o sistema de geração de relatórios da **Bonsae**.
 - PostgreSQL
 - Docker + Docker Compose
 - MinIO
-- BullMQ (em breve)
+- BullMQ 
 - Swagger (em breve)
 
 ---
@@ -57,6 +57,11 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 - S3_BUCKET
 - S3_FORCE_PATH_STYLE = true
 - S3_PRESIGNED_TTL_SECONDS
+
+### --- REDIS ---
+REDIS_HOST
+REDIS_PORT
+REDIS_DB
 
 ## Docker
 

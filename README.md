@@ -59,9 +59,9 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 - S3_PRESIGNED_TTL_SECONDS
 
 ### --- REDIS ---
-REDIS_HOST
-REDIS_PORT
-REDIS_DB
+- REDIS_HOST
+- REDIS_PORT
+- REDIS_DB
 
 ## Docker
 

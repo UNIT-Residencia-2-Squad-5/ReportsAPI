@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Postgres } from "@/infrastructure/postgres/Postgres";
-import { UserService, ConflictError, NotFoundError, ValidationError } from "@/domain/services/UserService";
+import { UserService } from "@/domain/services/UserService";
+import { ValidationError, ConflictError, NotFoundError } from "@/domain/errors/DomainErrors";
 import { toUserResponse } from "@/domain/dtos/user.dtos";
 
 export class UserController {

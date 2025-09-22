@@ -3,10 +3,7 @@ import { Pool } from "pg";
 import { UserRepository } from "@/infrastructure/repositories/UserRepository";
 import { CreateUserDTO, UpdateUserDTO } from "@/domain/dtos/user.dtos";
 import { hashPassword } from "@/utils/Password";
-
-export class ConflictError extends Error {}
-export class NotFoundError extends Error {}
-export class ValidationError extends Error {}
+import { ValidationError, ConflictError, NotFoundError } from "@/domain/errors/DomainErrors";
 
 export class UserService {
   private readonly repo: UserRepository;

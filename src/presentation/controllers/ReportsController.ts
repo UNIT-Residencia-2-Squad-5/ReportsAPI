@@ -18,7 +18,36 @@ export class ReportsController {
     * 4. Lidar com demais erros retornando 500
   */
   static async create(req: Request, res: Response) {
-    // TODO: Implementar criação de solicitação
+    try {
+      // 1. Receber turmaId e tipoRelatorio do req.body
+      const { turmaId, tipoRelatorio } = req.body
+
+      // 2. Chamar service.create e retornar solicitacaoId com status 202
+      const solicitacaoId = await service.create({ turmaId, tipoRelatorio })
+
+      return res.status(202).json({
+        success: true,
+        data: {
+          solicitacaoId,
+        },
+        message: "Solicitação de relatório criada com sucesso",
+      })
+    } catch (error) {
+      // 3. Lidar com ValidationError retornando 400
+      if (error instanceof ValidationError) {
+        return res.status(400).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      // 4. Lidar com demais erros retornando 500
+      console.error("Erro ao criar solicitação de relatório:", error)
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 
   /**
@@ -32,7 +61,35 @@ export class ReportsController {
     * 4. Lidar com demais erros retornando 500
   */ 
   static async getStatus(req: Request, res: Response) {
-    // TODO: Implementar consulta de status
+    try {
+      // 1. Obter id do req.params
+      const { id } = req.params
+
+      // 2. Chamar service.getStatus e retornar o status
+      const status = await service.getStatus(id)
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          status,
+        },
+      })
+    } catch (error) {
+      // 3. Lidar com NotFoundError retornando 404
+      if (error instanceof NotFoundError) {
+        return res.status(404).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      // 4. Lidar com demais erros retornando 500
+      console.error("Erro ao consultar status da solicitação:", error)
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 
   /**
@@ -46,6 +103,34 @@ export class ReportsController {
     * 4. Lidar com demais erros retornando 500
   */
   static async download(req: Request, res: Response) {
-    // TODO: Implementar geração de link de download
+    try {
+      // 1. Obter id do req.params
+      const { id } = req.params
+
+      // 2. Chamar service.getDownloadUrl e retornar downloadUrl
+      const downloadUrl = await service.getDownloadUrl(id)
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          downloadUrl,
+        },
+      })
+    } catch (error) {
+      // 3. Lidar com ValidationError retornando 400
+      if (error instanceof ValidationError) {
+        return res.status(400).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      // 4. Lidar com demais erros retornando 500
+      console.error("Erro ao gerar URL de download:", error)
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 }

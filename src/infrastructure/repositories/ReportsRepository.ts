@@ -46,12 +46,26 @@ export class ReportsRepository {
     )
   }
 
-  async getFileKeyBySolicitacaoId(solicitacaoId: string): Promise<{ file_key: string; nome_arquivo: string } | null> {
+  async getFileKeyBySolicitacaoId(
+    solicitacaoId: string
+  ): Promise<{ file_key: string; nome_arquivo: string } | null> {
     const result = await this.pool.query(
       `SELECT file_key, nome_arquivo FROM relatorios_gerados
-      WHERE solicitacao_id = $1`,
-      [solicitacaoId],
-    )
-    return result.rows[0] ?? null
+       WHERE solicitacao_id = $1`,
+      [solicitacaoId]
+    );
+    return result.rows[0] ?? null;
+  }
+
+  //  para getAllReports
+  async getAll(): Promise<
+    { id: string; turma_id: string; tipo_relatorio: string; status: string }[]
+  > {
+    const result = await this.pool.query(
+      `SELECT id, turma_id, tipo_relatorio, status
+         FROM solicitacoes_relatorio
+         ORDER BY created_at DESC`
+    );
+    return result.rows;
   }
 }

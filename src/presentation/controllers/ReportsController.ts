@@ -1,51 +1,96 @@
-import { Request, Response } from "express";
-import { ReportsService } from "@/domain/services/ReportsService";
-import { ValidationError, NotFoundError } from "@/domain/errors/DomainErrors";
-import { Postgres } from "@/infrastructure/postgres/Postgres";
+import type { Request, Response } from "express"
+import { ReportsService } from "@/domain/services/ReportsService"
+import { ValidationError, NotFoundError } from "@/domain/errors/DomainErrors"
+import { Postgres } from "@/infrastructure/postgres/Postgres"
 
-const service = new ReportsService(Postgres.getPool());
+const service = new ReportsService(Postgres.getPool())
 
 export class ReportsController {
-
   /**
-    * Rota POST /reports
-    * Cria uma nova solicitação de relatório.
-    *
-    * TODO:
-    * 1. Receber `turmaId` e `tipoRelatorio` do `req.body`
-    * 2. Chamar `service.create(...)` e retornar `solicitacaoId` com status 202
-    * 3. Lidar com `ValidationError` retornando 400
-    * 4. Lidar com demais erros retornando 500
-  */
+   * Rota POST /reports
+   * Cria uma nova solicitação de relatório.
+   */
   static async create(req: Request, res: Response) {
-    // TODO: Implementar criação de solicitação
+    try {
+      const solicitacaoId = await service.create(req.body)
+
+      return res.status(202).json({
+        success: true,
+        data: {
+          solicitacaoId,
+        },
+        message: "Solicitação de relatório criada com sucesso",
+      })
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 
   /**
-    * Rota GET /reports/:id/status
-    * Retorna o status da solicitação.
-    *
-    * TODO:
-    * 1. Obter `id` do `req.params`
-    * 2. Chamar `service.getStatus(...)` e retornar o `status`
-    * 3. Lidar com `NotFoundError` retornando 404
-    * 4. Lidar com demais erros retornando 500
-  */ 
+   * Rota GET /reports/:id/status
+   * Retorna o status da solicitação.
+   */
   static async getStatus(req: Request, res: Response) {
-    // TODO: Implementar consulta de status
+    try {
+      const status = await service.getStatus(req.params.id)
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          status,
+        },
+      })
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        return res.status(404).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 
   /**
-    * Rota GET /reports/:id/download
-    * Retorna o link temporário para download do relatório.
-    *
-    * TODO:
-    * 1. Obter `id` do `req.params`
-    * 2. Chamar `service.getDownloadUrl(...)` e retornar `downloadUrl`
-    * 3. Lidar com `ValidationError` retornando 400
-    * 4. Lidar com demais erros retornando 500
-  */
+   * Rota GET /reports/:id/download
+   * Retorna o link temporário para download do relatório.
+   */
   static async download(req: Request, res: Response) {
-    // TODO: Implementar geração de link de download
+    try {
+      const downloadUrl = await service.getDownloadUrl(req.params.id)
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          downloadUrl,
+        },
+      })
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({
+          success: false,
+          error: error.message,
+        })
+      }
+
+      return res.status(500).json({
+        success: false,
+        error: "Erro interno do servidor",
+      })
+    }
   }
 }

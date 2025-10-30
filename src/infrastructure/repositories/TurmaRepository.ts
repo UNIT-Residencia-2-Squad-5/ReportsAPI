@@ -1,6 +1,7 @@
 import type { Pool } from "pg"
+import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
 
-export class TurmaRepository {
+export class TurmaRepository implements ITurmaRepository {
   constructor(private readonly pool: Pool) {}
 
   async validateTurmaExists(turmaId: string): Promise<boolean> {
@@ -8,3 +9,4 @@ export class TurmaRepository {
     return Number.parseInt(result.rows[0].count) > 0
   }
 }
+

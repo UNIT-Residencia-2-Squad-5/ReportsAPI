@@ -1,6 +1,8 @@
 import type { Pool } from "pg"
+import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
+import type { FileKeyResult, ReportSummary } from "@/types/reports.types"
 
-export class ReportsRepository {
+export class ReportsRepository implements IReportsRepository {
   constructor(private readonly pool: Pool) {}
 
   async createRequest(turmaId: string, tipoRelatorio: string): Promise<string> {
@@ -46,12 +48,21 @@ export class ReportsRepository {
     )
   }
 
-  async getFileKeyBySolicitacaoId(solicitacaoId: string): Promise<{ file_key: string; nome_arquivo: string } | null> {
+  async getFileKeyBySolicitacaoId(solicitacaoId: string): Promise<FileKeyResult | null> {
     const result = await this.pool.query(
       `SELECT file_key, nome_arquivo FROM relatorios_gerados
-      WHERE solicitacao_id = $1`,
+       WHERE solicitacao_id = $1`,
       [solicitacaoId],
     )
     return result.rows[0] ?? null
+  }
+
+  async getAll(): Promise<ReportSummary[]> {
+    const result = await this.pool.query(
+      `SELECT id, turma_id, tipo_relatorio, status
+         FROM solicitacoes_relatorio
+         ORDER BY created_at DESC`,
+    )
+    return result.rows
   }
 }

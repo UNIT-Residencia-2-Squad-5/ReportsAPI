@@ -29,7 +29,7 @@ export class ReportsService implements IReportsService {
 
     const solicitacaoId = await this.repo.createRequest(data.turmaId, data.tipoRelatorio)
 
-    await enqueueReportJob({ turmaId: data.turmaId, solicitacaoId })
+    await enqueueReportJob({ turmaId: data.turmaId, solicitacaoId, tipoRelatorio: data.tipoRelatorio })
 
     return solicitacaoId
   }

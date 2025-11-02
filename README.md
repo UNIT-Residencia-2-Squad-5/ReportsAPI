@@ -12,7 +12,7 @@ API backend para o sistema de geração de relatórios da **Bonsae**.
 - Docker + Docker Compose
 - MinIO
 - BullMQ 
-- Swagger (em breve)
+- Swagger
 
 ---
 
@@ -104,6 +104,10 @@ Faça uma requisição na rota healthcheck abaixo para testar a API
 ```http
 GET http://localhost:3000/api/health
 ```
+
+### Swagger
+Acesse a rota **http://localhost:3000/api-docs** no navegador para visualizar a documentação com swagger
+
 ### MinIO
 Primeiro crie o bucket com o mesmo nome especificado no .env através do link http://localhost:9001 e depois rode o comando:
 

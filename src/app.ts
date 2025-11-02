@@ -4,6 +4,8 @@ import cors from 'cors';
 import { readdirSync } from 'fs';
 import { join, extname } from 'path';
 import { getLogger } from '@/utils/Logger';
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from '@/swagger/swagger';
 
 const LOGGER = getLogger();
 
@@ -24,6 +26,7 @@ class App {
         this.express.use(express.json());
         this.express.use(cors());
         this.express.use(express.urlencoded({ extended: true }));
+        this.express.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     }
 
     private async setupRoutes (): Promise<void> {

@@ -6,10 +6,6 @@ import { Postgres } from "@/infrastructure/postgres/Postgres"
 const service = new ReportsService(Postgres.getPool())
 
 export class ReportsController {
-  /**
-   * Rota POST /reports
-   * Cria uma nova solicitação de relatório.
-   */
   static async create(req: Request, res: Response) {
     try {
       const solicitacaoId = await service.create(req.body)
@@ -36,10 +32,6 @@ export class ReportsController {
     }
   }
 
-  /**
-   * Rota GET /reports/:id/status
-   * Retorna o status da solicitação.
-   */
   static async getStatus(req: Request, res: Response) {
     try {
       const status = await service.getStatus(req.params.id)
@@ -65,10 +57,6 @@ export class ReportsController {
     }
   }
 
-  /**
-   * Rota GET /reports/:id/download
-   * Retorna o link temporário para download do relatório.
-   */
   static async download(req: Request, res: Response) {
     try {
       const downloadUrl = await service.getDownloadUrl(req.params.id)

@@ -3,17 +3,21 @@ import { TurmaRepository } from "@/infrastructure/repositories/TurmaRepository"
 import { enqueueReportJob } from "@/queue/reports.queue"
 import { ValidationError, NotFoundError } from "@/domain/errors/DomainErrors"
 import type { Pool } from "pg"
+import type { IReportsService } from "@/types/interfaces/IReportsService"
+import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
+import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
+import type { CreateReportInput } from "@/types/reports.types"
 
-export class ReportsService {
-  private readonly repo: ReportsRepository
-  private readonly turmaRepo: TurmaRepository
+export class ReportsService implements IReportsService {
+  private readonly repo: IReportsRepository
+  private readonly turmaRepo: ITurmaRepository
 
   constructor(pool: Pool) {
     this.repo = new ReportsRepository(pool)
     this.turmaRepo = new TurmaRepository(pool)
   }
 
-  async create(data: { turmaId?: string; tipoRelatorio?: string }): Promise<string> {
+  async create(data: CreateReportInput): Promise<string> {
     if (!data.turmaId || !data.tipoRelatorio) {
       throw new ValidationError("turmaId e tipoRelatorio são obrigatórios")
     }
@@ -59,3 +63,4 @@ export class ReportsService {
     return await s3.presignGetUrl(fileData.file_key, 300, fileData.nome_arquivo)
   }
 }
+

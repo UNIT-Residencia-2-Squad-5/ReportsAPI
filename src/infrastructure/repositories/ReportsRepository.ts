@@ -61,7 +61,7 @@ export class ReportsRepository implements IReportsRepository {
     const result = await this.pool.query(
       `SELECT id, turma_id, tipo_relatorio, status
          FROM solicitacoes_relatorio
-         ORDER BY created_at DESC`,
+         ORDER BY data_solicitacao  DESC`,
     )
     return result.rows
   }

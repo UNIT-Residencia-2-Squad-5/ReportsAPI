@@ -6,7 +6,7 @@ import type { Pool } from "pg"
 import type { IReportsService } from "@/types/interfaces/IReportsService"
 import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
 import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
-import type { CreateReportInput } from "@/types/reports.types"
+import type { CreateReportInput, ReportSummary } from "@/types/reports.types"
 
 export class ReportsService implements IReportsService {
   private readonly repo: IReportsRepository
@@ -61,6 +61,10 @@ export class ReportsService implements IReportsService {
     const s3 = new S3Storage()
 
     return await s3.presignGetUrl(fileData.file_key, 300, fileData.nome_arquivo)
+  }
+
+  async getAllReports(): Promise<ReportSummary[]> {
+    return this.repo.getAll();
   }
 }
 

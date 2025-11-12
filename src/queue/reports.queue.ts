@@ -11,12 +11,13 @@ export const reportsQueue = new Queue("reports_queue", {
 interface EnqueueReportJobProps {
   turmaId: string;
   solicitacaoId: string;
+  tipoRelatorio: string;
 }
 
-export async function enqueueReportJob({ turmaId, solicitacaoId }: EnqueueReportJobProps) {
+export async function enqueueReportJob({ turmaId, solicitacaoId, tipoRelatorio }: EnqueueReportJobProps) {
   LOGGER.info(`Enfileirando job para turma ${turmaId}, solicitação ${solicitacaoId}`);
 
-  await reportsQueue.add("generate_report", { turmaId, solicitacaoId }, {
+  await reportsQueue.add("generate_report", { turmaId, solicitacaoId, tipoRelatorio }, {
     attempts: 3,
     backoff: {
       type: "exponential",

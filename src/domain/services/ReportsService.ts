@@ -6,8 +6,10 @@ import type { Pool } from "pg"
 import type { IReportsService } from "@/types/interfaces/IReportsService"
 import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
 import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
-import type { CreateReportInput } from "@/types/reports.types"
+import type { CreateReportInput, ReportSummary } from "@/types/reports.types"
 
+
+// Remover validações de tipo e manter apenas validações de regras de negócio
 export class ReportsService implements IReportsService {
   private readonly repo: IReportsRepository
   private readonly turmaRepo: ITurmaRepository
@@ -29,7 +31,7 @@ export class ReportsService implements IReportsService {
 
     const solicitacaoId = await this.repo.createRequest(data.turmaId, data.tipoRelatorio)
 
-    await enqueueReportJob({ turmaId: data.turmaId, solicitacaoId })
+    await enqueueReportJob({ turmaId: data.turmaId, solicitacaoId, tipoRelatorio: data.tipoRelatorio })
 
     return solicitacaoId
   }
@@ -61,6 +63,15 @@ export class ReportsService implements IReportsService {
     const s3 = new S3Storage()
 
     return await s3.presignGetUrl(fileData.file_key, 300, fileData.nome_arquivo)
+  }
+
+  async getAllReports(): Promise<ReportSummary[]> {
+    return this.repo.getAll();
+  }
+
+  async getWorkload(): Promise<string[] | null> {
+    const workload = await this.repo.getWorkload();
+    return workload;
   }
 }
 

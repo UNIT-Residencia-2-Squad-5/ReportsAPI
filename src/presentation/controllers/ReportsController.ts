@@ -5,6 +5,8 @@ import { Postgres } from "@/infrastructure/postgres/Postgres"
 
 const service = new ReportsService(Postgres.getPool())
 
+
+// TODO: Usar class-validator para validar inputs, e deixar o response mais enxuto
 export class ReportsController {
   static async create(req: Request, res: Response) {
     try {
@@ -84,7 +86,7 @@ export class ReportsController {
 
   static async getAllReports(req: Request, res: Response) {
     try {
-      const reports = await service.getAllReports()
+      const reports = await service.getAllReports();
 
       return res.status(200).json({
         success: true,
@@ -97,7 +99,7 @@ export class ReportsController {
         return res.status(400).json({
           success: false,
           error: error.message,
-        })
+https://github.com/UNIT-Residencia-2-Squad-5/ReportsAPI/pull/7/conflict?name=src%252Fpresentation%252Fcontrollers%252FReportsController.ts&ancestor_oid=a16cf77ccc69165900d7851336bd280113d45be0&base_oid=ac66f6965ceb8bbbbd2587ab3d701b43a38bb133&head_oid=0435d857ec9cdcb41b3ef3ae6eb9d55caffc2d97        })
       }
 
       return res.status(500).json({
@@ -109,7 +111,7 @@ export class ReportsController {
 
   static async getWorkload(req: Request, res: Response) {
     try {
-      const reports = await service.getWorkload()
+      const reports = await service.getWorkload();
 
       return res.status(200).json({
         success: true,

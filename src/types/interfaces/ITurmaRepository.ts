@@ -3,7 +3,7 @@
  *  Define o contrato para operações de acesso a dados relacionadas a turmas.
  */
 
-import type { Turma, ListTurmasOptions, ListTurmasResult, TurmaComProfessores } from "@/types/turma.types"
+import type { Turma, ListTurmasOptions, ListTurmasResult, TurmaComProfessores } from "../professor.types"
 
 export interface ITurmaRepository {
   /**

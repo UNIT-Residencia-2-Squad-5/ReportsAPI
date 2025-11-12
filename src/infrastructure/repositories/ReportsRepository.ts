@@ -1,6 +1,7 @@
 import type { Pool } from "pg"
 import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
 import type { FileKeyResult, ReportSummary } from "@/types/reports.types"
+import { readQuery } from "@/utils/ReadQuery"
 
 export class ReportsRepository implements IReportsRepository {
   constructor(private readonly pool: Pool) {}
@@ -64,5 +65,11 @@ export class ReportsRepository implements IReportsRepository {
          ORDER BY data_solicitacao  DESC`,
     )
     return result.rows
+  }
+
+  async getWorkload(): Promise<string[]>{
+    const sql = readQuery("workload.sql");
+    const { rows } = await this.pool.query(sql);
+    return rows[0]?.resultado ?? [];
   }
 }

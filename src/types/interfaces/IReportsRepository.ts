@@ -60,4 +60,5 @@ export interface IReportsRepository {
    * @returns   Promise que resolve para uma lista de resumos de relatórios
    */
   getAll(): Promise<ReportSummary[]>
+  getWorkload(): Promise<string[] | null>
 }

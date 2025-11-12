@@ -99,7 +99,7 @@ export class ReportsController {
         return res.status(400).json({
           success: false,
           error: error.message,
-        })
+https://github.com/UNIT-Residencia-2-Squad-5/ReportsAPI/pull/7/conflict?name=src%252Fpresentation%252Fcontrollers%252FReportsController.ts&ancestor_oid=a16cf77ccc69165900d7851336bd280113d45be0&base_oid=ac66f6965ceb8bbbbd2587ab3d701b43a38bb133&head_oid=0435d857ec9cdcb41b3ef3ae6eb9d55caffc2d97        })
       }
 
       return res.status(500).json({

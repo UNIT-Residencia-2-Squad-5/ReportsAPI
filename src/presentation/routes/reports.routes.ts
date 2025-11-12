@@ -1,12 +1,13 @@
-import { Router } from "express";
-import { ReportsController } from "@/presentation/controllers/ReportsController";
+import type { Router } from "express"
+import { ReportsController } from "../controllers/ReportsController"
+import { validateReportCreation } from "../middlewares/validation.middleware"
 
 export default (router: Router) => {
-  router.post('/reports', ReportsController.create);
-  router.get('/reports/:id/status', ReportsController.getStatus);
-  router.get('/reports/:id/download', ReportsController.download);
-  router.get('/reports', ReportsController.getAllReports);
+  router.post("/reports", validateReportCreation, ReportsController.create)
+  router.get("/reports/:id/status", ReportsController.getStatus)
+  router.get("/reports/:id/download", ReportsController.download)
+  router.get("/reports", ReportsController.getAllReports)
 
   // TODO: Usar generator com streaming, e gerar XLSX/PDF
-  router.get('/workloads/', ReportsController.getWorkload);
+  router.get("/workloads/", ReportsController.getWorkload)
 }

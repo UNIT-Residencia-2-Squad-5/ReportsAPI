@@ -7,11 +7,11 @@ export class CreateReportDTO {
 
   @IsString({ message: "tipoRelatorio deve ser uma string" })
   @IsNotEmpty({ message: "tipoRelatorio é obrigatório" })
-  @IsIn(["PDF", "Excel"], { message: 'tipoRelatorio deve ser "PDF" ou "Excel"' })
+  @IsIn(["pdf", "excel"], { message: 'tipoRelatorio deve ser "pdf" ou "excel"' })
   tipoRelatorio!: string
 }
 
-export async function validateDTO<T>(
+export async function validateDTO<T extends object>(
   dtoClass: new () => T,
   plainObject: any,
 ): Promise<{ isValid: boolean; errors: string[] }> {
@@ -19,9 +19,9 @@ export async function validateDTO<T>(
   const validationErrors = await validate(dto)
 
   if (validationErrors.length > 0) {
-    const errors = validationErrors.map((error) => {
-      return Object.values(error.constraints || {}).join(", ")
-    })
+    const errors = validationErrors.map((error) =>
+      Object.values(error.constraints || {}).join(", "),
+    )
     return { isValid: false, errors }
   }
 

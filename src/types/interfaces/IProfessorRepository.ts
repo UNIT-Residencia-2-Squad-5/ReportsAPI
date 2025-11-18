@@ -3,10 +3,13 @@
  * Define o contrato para operações de acesso a dados relacionadas a professores.
  */
 
-import type { Professor, ListProfessoresOptions, ListProfessoresResult } from "@/types/professor.types"
+export type ListProfessoresOptions = {
+  limit: number
+  offset: number
+}
 
 export interface IProfessorRepository {
-  list(opts: ListProfessoresOptions): Promise<ListProfessoresResult>
-  findById(id: string): Promise<Professor | null>
-  findByTurmaId(turmaId: string): Promise<Professor[]>
+  list(opts: ListProfessoresOptions): Promise<string[]>
+  findById(id: string): Promise<string | null>
+  findByTurmaId(turmaId: string): Promise<string[]>
 }

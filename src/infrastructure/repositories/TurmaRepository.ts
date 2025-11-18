@@ -1,6 +1,6 @@
 import type { Pool } from "pg"
 import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
-import type { Turma, ListTurmasOptions, ListTurmasResult, TurmaComProfessores } from "@/types/turma.types"
+import type { Turma, ListTurmasOptions, ListTurmasResult, TurmaComProfessores} from "@/types/professor.types"
 
 export class TurmaRepository implements ITurmaRepository {
   constructor(private readonly pool: Pool) {}

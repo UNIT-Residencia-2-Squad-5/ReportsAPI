@@ -4,6 +4,9 @@ import { ProfessorService } from "@/domain/services/ProfessorService"
 import { NotFoundError } from "@/domain/errors/DomainErrors"
 
 export class ProfessorController {
+
+/*
+  // TODO: Corrigir tipagem
   // Lista todos os professores com paginação
   static async list(req: Request, res: Response) {
     const service = new ProfessorService(Postgres.getPool())
@@ -11,14 +14,14 @@ export class ProfessorController {
     const pageSize = Number(req.query.pageSize ?? 20)
 
     try {
-      const { data, total } = await service.list(page, pageSize)
+      const response = await service.list(page, pageSize)
       return res.json({
         success: true,
         data: {
-          total,
+          total: response.total,
           page,
           pageSize,
-          items: data,
+          items: response.data,
         },
       })
     } catch (error: any) {
@@ -28,6 +31,7 @@ export class ProfessorController {
       })
     }
   }
+*/
 
   // Busca um professor por ID
   static async getById(req: Request, res: Response) {

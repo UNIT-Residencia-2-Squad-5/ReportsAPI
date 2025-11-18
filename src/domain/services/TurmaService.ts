@@ -8,9 +8,8 @@ import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
 import type { IProfessorRepository } from "@/types/interfaces/IProfessorRepository"
 import type { IAlunoRepository } from "@/types/interfaces/IAlunoRepository"
 import type { IAtividadeRepository } from "@/types/interfaces/IAtividadeRepository"
-import type { Turma, ListTurmasResult } from "@/types/turma.types"
-import type { Professor } from "@/types/professor.types"
 import type { Aluno } from "@/types/aluno.types"
+import type { Turma, ListTurmasResult } from "@/types/professor.types"
 
 export class TurmaService {
   private readonly turmaRepo: ITurmaRepository
@@ -37,7 +36,7 @@ export class TurmaService {
     return turma
   }
 
-  async getProfessoresByTurmaId(turmaId: string): Promise<Professor[]> {
+  async getProfessoresByTurmaId(turmaId: string): Promise<string[]> {
     // Valida se a turma existe
     const turma = await this.turmaRepo.findById(turmaId)
     if (!turma) throw new NotFoundError("Turma não encontrada")

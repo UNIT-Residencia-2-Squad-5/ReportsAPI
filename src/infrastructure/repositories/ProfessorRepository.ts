@@ -1,11 +1,10 @@
 import type { Pool } from "pg"
-import type { IProfessorRepository } from "@/types/interfaces/IProfessorRepository"
-import type { Professor, ListProfessoresOptions, ListProfessoresResult } from "@/types/professor.types"
+import type { IProfessorRepository, ListProfessoresOptions } from "@/types/interfaces/IProfessorRepository"
 
 export class ProfessorRepository implements IProfessorRepository {
   constructor(private readonly pool: Pool) {}
 
-  async list(opts: ListProfessoresOptions): Promise<ListProfessoresResult> {
+  async list(opts: ListProfessoresOptions): Promise<any> {
     const { limit, offset } = opts
 
     const [rows, count] = await Promise.all([
@@ -16,7 +15,7 @@ export class ProfessorRepository implements IProfessorRepository {
       this.pool.query(`SELECT COUNT(*)::int AS total FROM professores`),
     ])
 
-    const data: Professor[] = rows.rows.map((row) => ({
+    const data = rows.rows.map((row) => ({
       id: row.id,
       nome: row.nome,
       departamento: row.departamento,
@@ -25,7 +24,7 @@ export class ProfessorRepository implements IProfessorRepository {
     return { data, total: count.rows[0].total as number }
   }
 
-  async findById(id: string): Promise<Professor | null> {
+  async findById(id: string): Promise<any> {
     const result = await this.pool.query(`SELECT id, nome, departamento FROM professores WHERE id = $1`, [id])
 
     if (!result.rowCount) return null
@@ -38,7 +37,7 @@ export class ProfessorRepository implements IProfessorRepository {
     }
   }
 
-  async findByTurmaId(turmaId: string): Promise<Professor[]> {
+  async findByTurmaId(turmaId: string): Promise<any> {
     const result = await this.pool.query(
       `SELECT p.id, p.nome, p.departamento 
        FROM professores p

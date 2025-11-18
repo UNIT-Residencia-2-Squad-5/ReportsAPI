@@ -3,6 +3,8 @@ import { ProfessorController } from "@/presentation/controllers/ProfessorControl
 
 export default (router: Router) => {
   // Rotas de professores
-  router.get("/professores", ProfessorController.list)
+
+  // TODO: Corrigir tipagem desse método
+  //router.get("/professores", ProfessorController.list)
   router.get("/professores/:id", ProfessorController.getById)
 }

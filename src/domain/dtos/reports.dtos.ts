@@ -7,7 +7,7 @@ export class CreateReportDTO {
 
   @IsString({ message: "tipoRelatorio deve ser uma string" })
   @IsNotEmpty({ message: "tipoRelatorio é obrigatório" })
-  @IsIn(["pdf", "excel"], { message: 'tipoRelatorio deve ser "pdf" ou "excel"' })
+  @IsIn(["pdf", "excel", "workload_excel", "workload_pdf"], { message: 'tipoRelatorio deve ser ["pdf", "excel", "workload_excel", "workload_pdf"]' })
   tipoRelatorio!: string
 }
 

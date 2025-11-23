@@ -9,6 +9,7 @@ WITH base AS (
     p.nota
   FROM participacoes p
   JOIN alunos a ON a.id = p.aluno_id
+  WHERE p.turma_id = $1
 ),
 totais_aluno AS (
   SELECT

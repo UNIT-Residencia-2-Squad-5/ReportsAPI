@@ -40,7 +40,7 @@ async function processReportJob(job: Job<{ turmaId: string; solicitacaoId: strin
     await repo.updateStatus(solicitacaoId, "processando");
 
     const fileKey = `relatorios/${solicitacaoId}.${generator.ext}`;
-    const nomeArquivo = `relatorio_turma_${turmaId}.${generator.ext}`;
+    const nomeArquivo = tipoRelatorio == 'workload_excel' ? `relatorio_workload_turma_${turmaId}.${generator.ext}` : `relatorio_turma_${turmaId}.${generator.ext}`;
 
     await generator.generate(turmaId, fileKey);
 

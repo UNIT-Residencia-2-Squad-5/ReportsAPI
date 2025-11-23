@@ -16,7 +16,7 @@ export async function generateReportWorkloadXLSX(
 
   try {
     const sql = readQuery("workload.sql")
-    const queryResult = await client.query(sql)
+    const queryResult = await client.query(sql, [turmaId])
 
     if (!queryResult.rows.length) {
       throw new Error("Nenhum dado encontrado para workloads.")

@@ -8,7 +8,6 @@ import type { IReportsRepository } from "@/types/interfaces/IReportsRepository"
 import type { ITurmaRepository } from "@/types/interfaces/ITurmaRepository"
 import type { CreateReportInput, ReportSummary } from "@/types/reports.types"
 
-
 // Remover validações de tipo e manter apenas validações de regras de negócio
 export class ReportsService implements IReportsService {
   private readonly repo: IReportsRepository
@@ -67,11 +66,6 @@ export class ReportsService implements IReportsService {
 
   async getAllReports(): Promise<ReportSummary[]> {
     return this.repo.getAll();
-  }
-
-  async getWorkload(): Promise<string[] | null> {
-    const workload = await this.repo.getWorkload();
-    return workload;
   }
 }
 

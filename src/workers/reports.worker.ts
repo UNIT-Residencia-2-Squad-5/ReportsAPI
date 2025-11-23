@@ -4,6 +4,7 @@ import { getLogger } from "@/utils/Logger";
 import { ReportsRepository } from "@/infrastructure/repositories/ReportsRepository";
 import { generateReportXLSX } from "@/infrastructure/reports/reports-xlsx.generator";
 import { generateReportPDF } from "@/infrastructure/reports/reports-pdf.generator";
+import { generateReportWorkloadXLSX } from "@/infrastructure/reports/workloadReports-xlsx.generator";
 import { Postgres } from "@/infrastructure/postgres/Postgres";
 
 Postgres.init();
@@ -19,6 +20,10 @@ const REPORT_GENERATORS = {
     ext: "pdf",
     generate: generateReportPDF,
   },
+  workload_excel: {
+    ext: "xlsx",
+    generate: generateReportWorkloadXLSX,
+  }
 } as const;
 
 async function processReportJob(job: Job<{ turmaId: string; solicitacaoId: string; tipoRelatorio: keyof typeof REPORT_GENERATORS }> ){

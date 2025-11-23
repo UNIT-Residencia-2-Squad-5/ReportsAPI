@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --files --transpile-only --require tsconfig-paths/register src/server.ts",
     "start": "node dist/server.js",
+    "migrate": "cd src\\scripts && run_migrations.bat",
     "build": "tsc",
     "seed": "ts-node -r tsconfig-paths/register src/scripts/seed.ts",
     "job:add": "ts-node -r tsconfig-paths/register src/scripts/testAddJob.ts",

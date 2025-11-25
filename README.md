@@ -73,19 +73,13 @@ docker-compose up -d
 
 ## Migrations
 
-Este projeto **não utiliza ORM**. As migrations devem ser aplicadas manualmente diretamente no banco **Postgres** que roda dentro do container Docker.   
+Este projeto **não utiliza ORM**. As migrations são aplicadas através de um comando que roda um script para subir automaticamente todos os
+arquivos .sql da pasta src/infrastructure/db/migrations direto no container postgres, veja abaixo
 
-Suba o container:
+Rode o comando:
+
 ```bash
-docker compose up -d
-```
-Acesse o banco:
-```bash
-docker exec -it <nome-do-container> psql -U <usuario> -d <database>
-```
-Rode os arquivos de migration que estão em **src/infrastructure/db/migrations:**
-```bash
-\i migrations/001_create_users.sql
+npm run migrate
 ```
 
 ## Rodando localmente
@@ -94,6 +88,12 @@ Inicie o servidor
 
 ```bash
 npm run dev
+```
+
+Inicie o worker
+
+```bash
+npm run worker
 ```
 
 ## Faça o teste
@@ -114,10 +114,3 @@ Primeiro crie o bucket com o mesmo nome especificado no .env através do link ht
 ```bash
 npm run minio:test
 ```
-
-## Exemplo de Arquitetura
-
-O "Model" **User** foi criado apenas como **exemplo didático**, para mostrar como as camadas do projeto se comunicam entre si 
-(routes → controllers → services → repositories → entities).  
-
-Ele **não representa um requisito de negócio real** e pode ser removido ou substituído pelas entidades definitivas do sistema.

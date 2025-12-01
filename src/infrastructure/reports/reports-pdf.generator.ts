@@ -118,7 +118,7 @@ export async function generateReportPDF(turmaId: string, fileKey: string) {
       .font("Helvetica-Bold")
       .fontSize(18)
       .fillColor(THEME_COLORS.headerBg)
-      .text(`📊 RELATÓRIO DE DESEMPENHO - TURMA ${turmaId}`, { align: "center" })
+      .text(` RELATÓRIO DE DESEMPENHO - TURMA ${turmaId}`, { align: "center" })
 
     doc.moveDown(0.3)
     doc

@@ -7,6 +7,8 @@ export class ReportsRepository implements IReportsRepository {
   constructor(private readonly pool: Pool) {}
 
   async createRequest(turmaId: string, tipoRelatorio: string): Promise<string> {
+    await this.pool.query(`SET timezone TO 'America/Sao_Paulo'`)
+
     const result = await this.pool.query(
       `INSERT INTO solicitacoes_relatorio (turma_id, tipo_relatorio, status)
        VALUES ($1, $2, 'pendente')
@@ -45,7 +47,7 @@ export class ReportsRepository implements IReportsRepository {
         nome_arquivo,
         file_key
       ) VALUES ($1, $2, $3, $4, $5)`,
-      [solicitacaoId, turmaId, "excel", nomeArquivo, fileKey],
+      [solicitacaoId, turmaId, tipoRelatorio, nomeArquivo, fileKey],
     )
   }
 
@@ -59,10 +61,12 @@ export class ReportsRepository implements IReportsRepository {
   }
 
   async getAll(): Promise<ReportSummary[]> {
+    await this.pool.query(`SET timezone TO 'America/Sao_Paulo'`)
+
     const result = await this.pool.query(
-      `SELECT id, turma_id, tipo_relatorio, status
+      `SELECT id, turma_id, tipo_relatorio, status, data_solicitacao
          FROM solicitacoes_relatorio
-         ORDER BY data_solicitacao  DESC`,
+         ORDER BY data_solicitacao DESC`,
     )
     return result.rows
   }

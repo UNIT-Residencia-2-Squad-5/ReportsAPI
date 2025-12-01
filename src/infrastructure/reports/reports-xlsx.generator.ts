@@ -69,7 +69,7 @@ export async function generateReportXLSX(turmaId: string, fileKey: string) {
       { header: "Status", key: "status_avaliacao", width: 18 },
     ]
 
-    const titleText = `📊 RELATÓRIO DE DESEMPENHO - TURMA ${turmaId}`
+    const titleText = ` RELATÓRIO DE DESEMPENHO - TURMA ${turmaId}`
     const subtitleText = `Gerado em ${new Date().toLocaleString("pt-BR", {
       dateStyle: "full",
       timeStyle: "short",

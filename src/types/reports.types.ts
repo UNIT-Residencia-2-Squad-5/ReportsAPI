@@ -22,6 +22,7 @@ export interface ReportSummary {
   turma_id: string
   tipo_relatorio: string
   status: string
+  data_solicitacao: string | null
 }
 
 // Reports Service Types
